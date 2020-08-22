@@ -1,0 +1,223 @@
+type Query {
+  users: [User!]!
+  user(id: ID!): User!
+  me: User!
+  categories(categoryType: UsageType, language: String!): [Category!]!
+  category(id: ID!): Category!
+  posts(language: String!): [Post!]!
+  post(id: ID!): Post!
+  comments(status: CommentStatus): [Comment]!
+  comment(id: ID!): Comment!
+}
+
+type Mutation {
+  loginUser(data: LoginUserInput!): AuthPayload!
+  createUser(data: CreateUserInput!): User!
+  updateUser(data: UpdateUserInput!, id: ID!): User!
+  deleteUser(id: ID!): User!
+
+  createCategory(data: CreateCategoryInput!): Category!
+  updateCategory(data: UpdateCategoryInput!, id: ID!): Category!
+  deleteCategory(id: ID!): Category!
+
+  createPost(data: CreatePostInput!, category: ID!): Post!
+  updatePost(data: UpdatePostInput!, category: ID, id: ID!): Post!
+  deletePost(id: ID!): Post!
+
+  createContent(data: CreateContentInput!, postId: ID!): Post!
+  updateContent(data: UpdateContentInput!, id: ID!): Content!
+  deleteContent(id: ID!): Content!
+
+  createComment(text: String!, postId: ID!): Post!
+  updateComment(text: String, status: CommentStatus, id: ID!): Comment!
+  deleteComment(id: ID!): Comment!
+}
+
+type User {
+  id: ID!
+  name: String!
+  email: String!
+  password: String!
+  userType: UserType!
+  theme: ThemeType!
+  posts: [Post!]!
+  comments: [Comment!]!
+}
+
+input CreateUserInput {
+  name: String!
+  email: String!
+  password: String!
+  userType: UserType!
+}
+
+input UpdateUserInput {
+  name: String
+  email: String
+  password: String
+  userType: UserType
+}
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
+type AuthPayload {
+  token: String!
+  user: User!
+}
+
+type Category {
+  id: ID!
+  title: String!
+  slug: String!
+  photo: String
+  description: String
+  categoryType: UsageType
+  posts: [Post!]!
+}
+
+input CreateCategoryInput {
+  title: String!
+  photo: String
+  description: String
+  categoryType: UsageType
+}
+
+input UpdateCategoryInput {
+  title: String
+  photo: String
+  description: String
+  categoryType: UsageType
+}
+
+type Post {
+  id: ID!
+  title: String!
+  slug: String!
+  photo: String
+  description: String
+  publishedAt: String!
+  viewCount: Int!
+  shareCount: Int!
+  category: Category!
+  user: User!
+  contents: [Content!]!
+  comments: [Comment!]!
+}
+
+input CreatePostInput {
+  title: String!
+  photo: String
+  description: String
+  publishedAt: String!
+}
+
+input UpdatePostInput {
+  title: String
+  photo: String
+  description: String
+  publishedAt: String
+}
+
+type Content {
+  id: ID!
+  title: String
+  description: String
+  latitude: Float
+  longitude: Float
+  photos: [String!]!
+  video: String
+  embedCode: String
+  mediaType: MediaType
+  codeType: CodeType
+  contentType: ContentType!
+  soruce: String
+}
+
+input CreateContentInput {
+  title: String
+  description: String
+  latitude: Float
+  longitude: Float
+  photos: [String!]!
+  embedCode: String
+  mediaType: MediaType
+  codeType: CodeType
+  contentType: ContentType!
+  soruce: String
+}
+
+input UpdateContentInput {
+  title: String
+  description: String
+  latitude: Float
+  longitude: Float
+  photos: [String!]!
+  embedCode: String
+  mediaType: MediaType
+  codeType: CodeType
+  contentType: ContentType
+  soruce: String
+}
+
+type Comment {
+  id: ID!
+  text: String!
+  user: User!
+  status: CommentStatus
+}
+
+enum CommentStatus {
+  PENDING
+  PUBLISHED
+  DECLINED
+}
+enum UsageType {
+  BLOG
+  PAGE
+}
+
+enum CodeType {
+  C
+  CSHARP
+  CSS
+  HTML
+  HTTP
+  JAVA
+  JAVASCRIPT
+  JSON
+  MARKDOWN
+  PHP
+  PLAINTEXT
+  PYTHON
+  SCSS
+  SQL
+  TYPESCRIPT
+  XML
+  YAML
+}
+enum MediaType {
+  SINGLE
+  GALLERY
+}
+
+enum ContentType {
+  TEXT
+  IMAGE
+  VIDEO
+  TWITTER
+  FACEBOOK
+  INSTAGRAM
+  MAP
+  CODE
+}
+enum UserType {
+  ADMIN
+  MODERATOR
+  USER
+}
+enum ThemeType {
+  LIGHT
+  DARK
+}

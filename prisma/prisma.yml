@@ -1,0 +1,5 @@
+datamodel: datamodel.prisma
+secret: SECRET
+generate:
+  - generator: graphql-schema
+    output: ./../src/generated/prisma.graphql

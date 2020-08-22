@@ -1,0 +1,4 @@
+node_modules
+prisma.graphql
+package-lock.json
+.DS_Store
