@@ -16,11 +16,6 @@ const content = {
             {
               id: postId,
             },
-            {
-              user: {
-                id: userData.id,
-              },
-            },
           ],
         },
       },
@@ -59,20 +54,13 @@ const content = {
             {
               id: args.id,
             },
-            {
-              post: {
-                user: {
-                  id: userData.id,
-                },
-              },
-            },
           ],
         },
       },
       null
     );
     if (!content[0]) {
-      throw new Error("Bu içeriği silme yetkiniz bulunmamaktadır.");
+      throw new Error("Bu içeriği düzenleme yetkiniz bulunmamaktadır.");
     }
 
     const photos = args.data.photos;

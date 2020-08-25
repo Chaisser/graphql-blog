@@ -88,7 +88,7 @@ const post = {
             },
             {
               user: {
-                id: userData.id,
+                OR: [{ id: userData.id }, { userType: userData.userType }],
               },
             },
           ],
@@ -96,7 +96,6 @@ const post = {
       },
       null
     );
-    console.log(post);
 
     if (!post[0]) {
       throw new Error("Bu yazıyı silme yetkiniz bulunamamaktadır");

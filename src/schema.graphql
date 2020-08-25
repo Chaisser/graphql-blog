@@ -1,13 +1,17 @@
+scalar Upload
+
 type Query {
   users: [User!]!
   user(id: ID!): User!
   me: User!
   categories(categoryType: UsageType, language: String!): [Category!]!
   category(id: ID!): Category!
-  posts(language: String!): [Post!]!
+  posts(language: String!, categoryType: UsageType!): [Post!]!
   post(id: ID!): Post!
   comments(status: CommentStatus): [Comment]!
   comment(id: ID!): Comment!
+  contents(postId: ID!): [Content]!
+  content(id: ID!): Content!
 }
 
 type Mutation {
@@ -31,6 +35,12 @@ type Mutation {
   createComment(text: String!, postId: ID!): Post!
   updateComment(text: String, status: CommentStatus, id: ID!): Comment!
   deleteComment(id: ID!): Comment!
+
+  uploadPhoto(photo: Upload!): UploadPayload!
+}
+
+type UploadPayload {
+  photo: String!
 }
 
 type User {
@@ -88,7 +98,6 @@ input UpdateCategoryInput {
   title: String
   photo: String
   description: String
-  categoryType: UsageType
 }
 
 type Post {
@@ -133,6 +142,7 @@ type Content {
   codeType: CodeType
   contentType: ContentType!
   soruce: String
+  order: Int
 }
 
 input CreateContentInput {
@@ -166,6 +176,8 @@ type Comment {
   text: String!
   user: User!
   status: CommentStatus
+  post: Post!
+  createdAt: String!
 }
 
 enum CommentStatus {
@@ -199,6 +211,7 @@ enum CodeType {
 }
 enum MediaType {
   SINGLE
+  THUMBS
   GALLERY
 }
 

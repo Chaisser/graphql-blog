@@ -5,7 +5,7 @@
       "extensions": {
         "prisma": "prisma/prisma.yml",
         "endpoints": {
-          "default": ""
+          "default": "https://interaktif-blog-6508450f70.herokuapp.com/sunucu/prod"
         }
       }
     }

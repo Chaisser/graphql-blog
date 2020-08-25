@@ -1,11 +1,21 @@
 const post = {
   posts(parent, args, { prisma, request }, info) {
     const language = args.language;
+    const categoryType = args.categoryType;
 
     return prisma.query.posts(
       {
         where: {
-          language,
+          AND: [
+            {
+              language,
+            },
+            {
+              category: {
+                categoryType,
+              },
+            },
+          ],
         },
       },
       info

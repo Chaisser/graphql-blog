@@ -103,6 +103,7 @@ enum CodeType {
 }
 enum MediaType {
   SINGLE
+  THUMBS
   GALLERY
 }
 

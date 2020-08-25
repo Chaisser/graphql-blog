@@ -6,7 +6,7 @@ const getUserData = (request, requireAuth = true, requireAdmin = false) => {
   if (header) {
     const token = header.replace("Bearer ", "");
 
-    const decoded = jwt.verify(token, "JWTSECRET");
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
     const userType = decoded.userType;
 

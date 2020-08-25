@@ -19,6 +19,16 @@ const category = {
       info
     );
   },
+  category(parent, args, { prisma, request }, info) {
+    return prisma.query.category(
+      {
+        where: {
+          id: args.id,
+        },
+      },
+      info
+    );
+  },
 };
 
 export default category;
